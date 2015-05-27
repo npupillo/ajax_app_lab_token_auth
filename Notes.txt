@@ -1,0 +1,26 @@
+Successful:
+CURL Create user:
+$ curl -X POST -d "user[email]=nicole.pupillo@gmail.com" -d "user[password]=password" http://localhost:3000/api/v1/users
+  {"token":"cf4c1788c5b2445cb700f31cd94b12ff"}
+
+AJAX Create user:
+$.ajax({
+  url: 'http://localhost:3000/api/v1/users',
+  type: 'POST',
+  data: {
+    user: {
+      email: 'test2@test.com',
+      password: 'password'
+    }
+  }
+})
+.done(loginSuccess)
+.fail(function(jqXHR, textStatus, errorThrow){
+  console.log(jqXHR, textStatus, errorThrow);
+});
+
+var loginSuccess = function(userData){
+  //recieve the authToken in the response, userData.token
+  localStorage.setItem('authToken', userData.token);
+  console.log('Logged in!');
+};
